@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableThree from "@/components/Tables/TableThree";
 import { Property } from "@/types/Property";
 import { useState } from "react";
+import { ComponentWidth } from '@/types/componentSize'
 
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -130,8 +131,10 @@ const CalendarPage = () => {
           <div>
             <span className="font-bold">Filtrer</span> Utiliser les options pour filtrer
           </div>
-          <div>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} />
+          <div className="flex justify-start gap-6">
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label" size="w-60"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label2" size="w-60"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label3" size="w-60"/>
           </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />

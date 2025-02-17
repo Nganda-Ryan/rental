@@ -3,14 +3,17 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { useState } from 'react';
+import { ComponentWidth } from '@/types/componentSize'
 
 interface DropdownFilterProps {
     dataList: { id: string; value: string }[];
     handleSelected: (selected: { id: string; value: string } | null) => void;
     placeholder?: string; // Nouvelle prop pour le placeholder
+    label?: string;
+    size?: string; //
 }
 
-export default function DropdownFilter({ dataList, handleSelected, placeholder = "Veuillez entrer une valeur" }: DropdownFilterProps) {
+export default function DropdownFilter({ dataList, handleSelected, placeholder = "Veuillez entrer une valeur", label="", size="w-96" }: DropdownFilterProps) {
     const [query, setQuery] = useState('');
     const [selected, setSelected] = useState<{ id: string; value: string } | null>(null);
 
@@ -25,7 +28,10 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
     };
 
     return (
-        <div className="w-96 dark:text-slate-50">
+        <span className={`${size} dark:text-slate-50 inline`}>
+            <div>
+                {label}
+            </div>
             <Combobox value={selected} onChange={handleComboboxChanges} onClose={() => setQuery('')}>
                 <div className="relative rounded-sm border dark:border-strokedark dark:bg-boxdark border-slate-200 p-1 w-full flex justify-between flex-nowrap">
                     <ComboboxInput
@@ -41,9 +47,7 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
 
                 <ComboboxOptions
                     anchor="bottom"
-                    className={clsx(
-                        'dark:text-slate-50 z-[100000000000] ml-2 mt-1 w-96 rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark'
-                    )}
+                    className={`${size} dark:text-slate-50 z-[100000000000] ml-2 mt-1 rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark`}
                 >
                     {filteredData.length > 0 ? (
                         filteredData.map((item) => (
@@ -61,6 +65,6 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
                     )}
                 </ComboboxOptions>
             </Combobox>
-        </div>
+        </span>
     );
 }
