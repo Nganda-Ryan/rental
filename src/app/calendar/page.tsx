@@ -10,6 +10,7 @@ import TableThree from "@/components/Tables/TableThree";
 import { Property } from "@/types/Property";
 import { useState } from "react";
 import { ComponentWidth } from '@/types/componentSize'
+import PropertyTile from "@/components/Tile/PropertyTile";
 
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -128,21 +129,27 @@ const CalendarPage = () => {
       <Breadcrumb pageName="Locatif" />
       <div className="rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark lg:px-7.5">
         <div className="mx-auto max-w-full overflow-x-auto">
-          <div>
+          <div className="">
             <span className="font-bold">Filtrer</span> Utiliser les options pour filtrer
           </div>
-          <div className="flex justify-start gap-6">
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label" size="w-60"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label2" size="w-60"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="label3" size="w-60"/>
+          <div className="flex justify-start gap-6 mt-5">
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Immeubles" size="w-60" placeholder="Tous les immeubles"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Type" size="w-60" placeholder="Tous les types"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Location" size="w-60" placeholder="Avec et sans location"/>
           </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-          <div>
-            <div>LOUE/NON LOUE</div>
-            <div>VALEUR LOCATIVE</div>
-            <div>VALEUR DES ACTIFS</div>
+          <div className="flex gap-5">
+            <div>
+              <PropertyTile />
+            </div>
+            <div>
+              <PropertyTile />
+            </div>
+            <div>
+              <PropertyTile />
+            </div>
           </div>
 
         </div>

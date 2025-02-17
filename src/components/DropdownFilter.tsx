@@ -1,9 +1,7 @@
 "use client";
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import clsx from 'clsx';
 import { useState } from 'react';
-import { ComponentWidth } from '@/types/componentSize'
 
 interface DropdownFilterProps {
     dataList: { id: string; value: string }[];
