@@ -16,7 +16,7 @@ import PropertyTile from "@/components/Tile/PropertyTile";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
-const CalendarPage = () => {
+const PropertiesPage = () => {
   const [packageData, setPackageData] = useState<Property[]>([
     {
       name: "Basic Plan",
@@ -130,25 +130,26 @@ const CalendarPage = () => {
       <div className="rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark lg:px-7.5">
         <div className="mx-auto max-w-full overflow-x-auto">
           <div className="">
-            <span className="font-bold">Filtrer</span> Utiliser les options pour filtrer
+            <div><span className="font-bold">Filtrer</span> Utiliser les options pour filtrer</div>
+            <button className="">New propery</button>
           </div>
-          <div className="flex justify-start gap-6 mt-5">
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Immeubles" size="w-60" placeholder="Tous les immeubles"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Type" size="w-60" placeholder="Tous les types"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Location" size="w-60" placeholder="Avec et sans location"/>
+          <div className="flex justify-start items-center flex-wrap gap-6 mt-5">
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Immeubles" size="w-full sm:w-60" placeholder="Tous les immeubles"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Type" size="w-full sm:w-60" placeholder="Tous les types"/>
+            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Location" size="w-full sm:w-60" placeholder="Avec et sans location"/>
           </div>
 
-          <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700" />
 
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-start items-center gap-5">
             <div>
-              <PropertyTile />
+              <PropertyTile header="LOUE/NON LOUE" body="1/1"/>
             </div>
             <div>
-              <PropertyTile />
+              <PropertyTile header="VALEUR LOCATIVE" body="0.00 €"/>
             </div>
             <div>
-              <PropertyTile />
+              <PropertyTile header="VALEUR DES ACTIFS" body="0.00 €"/>
             </div>
           </div>
 
@@ -168,4 +169,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default PropertiesPage;
