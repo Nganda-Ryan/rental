@@ -1,5 +1,5 @@
 "use client";
-import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Description, Field, Label } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 
@@ -26,17 +26,23 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
     };
 
     return (
-        <span className={`${size} dark:text-slate-50 inline`}>
-            <div>
+        <Field className={`${size} dark:text-slate-50 inline`}>
+            <Label>
                 {label}
-            </div>
-            <Combobox value={selected} onChange={handleComboboxChanges} onClose={() => setQuery('')}>
+            </Label>
+            {/* <Description>This person will have full access to this project.</Description> */}
+            <Combobox 
+                value={selected}
+                onChange={handleComboboxChanges} 
+                onClose={() => setQuery('')}
+                // virtual={{ options: filteredData }}
+                >
                 <div className="relative rounded-sm border dark:border-strokedark dark:bg-boxdark border-slate-200 p-1 w-full flex justify-between flex-nowrap">
                     <ComboboxInput
                         className="px-1 py-1 focus:outline-none focus:ring-0 w-full dark:bg-inherit"
                         displayValue={(item: { id: string; value: string } | null) => item?.value || ''}
                         onChange={(event) => setQuery(event.target.value)}
-                        placeholder={placeholder} // Ajout du placeholder
+                        placeholder={placeholder}
                     />
                     <ComboboxButton className="">
                         <ChevronUpDownIcon className="size-4 fill-slate/60 group-data-[hover]:fill-slate" />
@@ -45,26 +51,26 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
                 
                 <ComboboxOptions
                     anchor="bottom"
-                    className={`${size} dark:text-slate-50 z-[100000000000] mt-1 rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark overflow-hidden`}
+                    transition
+                    className={`ml-2 origin-top transition duration-200 ease-out empty:invisible data-[closed]:opacity-0 dark:text-slate-50 z-[100000000000] mt-1 rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark overflow-hidden`}
+                    style={{ width: 'calc(var(--input-width) + var(--button-width) + 10px)' }}
                 >
-                    <div className='bg-red-300'>
-                        {filteredData.length > 0 ? (
-                            filteredData.map((item) => (
-                                <ComboboxOption
-                                    key={item.id}
-                                    value={item}
-                                    className="group flex cursor-default items-center gap-2 py-1.5 px-2 select-none data-[focus]:bg-slate-300"
-                                >
-                                    <CheckIcon className="invisible size-4 fill-slate group-data-[selected]:visible" />
-                                    <div className="">{item.value}</div>
-                                </ComboboxOption>
-                            ))
-                        ) : (
-                            <div className="px-2 py-1.5 text-slate-500">Aucun résultat trouvé</div> // Message si la liste est vide
-                        )}
-                    </div>
+                    {filteredData.length > 0 ? (
+                        filteredData.map((item) => (
+                            <ComboboxOption
+                                key={item.id}
+                                value={item}
+                                className="group flex cursor-default items-center gap-2 py-1.5 px-2 select-none data-[focus]:bg-slate-300"
+                            >
+                                <CheckIcon className="invisible size-4 fill-slate group-data-[selected]:visible" />
+                                <div className="">{item.value}</div>
+                            </ComboboxOption>
+                        ))
+                    ) : (
+                        <div className="px-2 py-1.5 text-slate-500">Aucun résultat trouvé</div> // Message si la liste est vide
+                    )}
                 </ComboboxOptions>
             </Combobox>
-        </span>
+        </Field>
     );
 }
