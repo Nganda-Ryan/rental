@@ -13,12 +13,16 @@
     "@heroicons/react": "^2.2.0",
     "ag-grid-react": "^33.1.0",
     "apexcharts": "^3.45.2",
+    "clsx": "^2.1.1",
     "flatpickr": "^4.6.13",
+    "framer-motion": "^12.4.7",
     "jsvectormap": "^1.6.0",
     "next": "^14.2.4",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",

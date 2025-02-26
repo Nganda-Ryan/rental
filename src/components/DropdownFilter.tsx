@@ -52,7 +52,7 @@ export default function DropdownFilter({ dataList, handleSelected, placeholder =
                 <ComboboxOptions
                     anchor="bottom"
                     transition
-                    className={`ml-2 origin-top transition duration-200 ease-out empty:invisible data-[closed]:opacity-0 dark:text-slate-50 z-[100000000000] mt-1 rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark overflow-hidden`}
+                    className={`ml-2 origin-top transition duration-200 ease-out empty:invisible data-[closed]:opacity-0 dark:text-slate-50 z-[100000000000] rounded-sm bg-white border dark:border-strokedark dark:bg-boxdark overflow-hidden`}
                     style={{ width: 'calc(var(--input-width) + var(--button-width) + 10px)' }}
                 >
                     {filteredData.length > 0 ? (
