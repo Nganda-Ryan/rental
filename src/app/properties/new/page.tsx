@@ -79,19 +79,19 @@ const Page = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Locatif / nouveau" />
-      <div className="rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark lg:px-7.5">
+      <div className="border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark rounded-md">
 
         <TabGroup selectedIndex={selectedIndex} onChange={handleTabChange}>
           {/* Onglets pour desktop */}
-          <TabList className="gap-2 hidden md:flex">
+          <TabList className="gap-2 hidden md:flex bg-slate-100 dark:bg-black">
             {categories.map(({ name }, index) => (
               <Tab
                 key={index}
                 className={clsx(
-                  "rounded-sm py-2 px-3 text-sm font-semibold focus:outline-none dark:text-slate-100 ",
-                  index === selectedIndex && "bg-slate-100 dark:bg-transparent border border-slate-200 dark:border-slate-700 border-b-0",
-                  Math.max(...validatedSteps) > index && "text-green-600 dark:text-green-500",
-                  Math.max(...validatedSteps) == index && "text-blue-500 dark:text-blue-500",
+                  "first:rounded-tl-md py-2 px-3 text-sm font-semibold focus:outline-none dark:bg-black bg-slate-100",
+                  index === selectedIndex && "bg-white dark:bg-boxdark",
+                  Math.max(...validatedSteps) > index && "text-green-600",
+                  Math.max(...validatedSteps) == index && "text-blue-500",
                 )}
               >
                 {name}
@@ -132,11 +132,8 @@ const Page = () => {
 
           {/* Contenu des panneaux */}
           <TabPanels className="">
-            <header className='bg-slate-100 dark:bg-transparent border border-slate-200 dark:border-slate-700 py-1.5 px-2 hidden md:block'>
-              <h1>{categories[selectedIndex].name}</h1>
-            </header>
             <div className="relative">
-              <div className='border border-t-0 border-slate-200 dark:border-slate-700'>
+              <div className='border-b-[1px] border-slate-200 dark:border-slate-700'>
                 <TabPanel className="p-2">
                   <div className='max-w-6xl'>
                     <PropertiesGeneralInfoForm ref={step1FormRef} />
@@ -151,7 +148,7 @@ const Page = () => {
                   <PhotosForm></PhotosForm>
                 </TabPanel>
               </div>
-              <footer className='rounded-b-md bg-slate-100 dark:bg-transparent dark:border-slate-700 border border-slate-200 border-t-0 p-1.5 flex justify-end gap-6'>
+              <footer className='flex justify-end gap-6 p-4'>
                 <Button
                   onClick={goPrevious}
                   disabled={selectedIndex === 0}

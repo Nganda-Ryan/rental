@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className="">
-        <div className="dark:bg-boxdark-2 dark:text-bodydark min-h-screen">
+        <div className="dark:bg-boxdark-2 dark:text-bodydark min-h-screen bg-blue-sky">
           {children}
         </div>
       </body>

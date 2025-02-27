@@ -1,16 +1,13 @@
 "use client"
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Image from "next/image";
-import DropdownFilter from "@/components/DropdownFilter";
-import { AgGridReact } from 'ag-grid-react';
-import { AllCommunityModule, ColDef, ModuleRegistry } from 'ag-grid-community'; 
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Property } from "@/types/Property";
-import { useEffect, useState } from "react";
-import PropertyTile from "@/components/Tile/PropertyTile";
+import { useState } from "react";
 import { Button } from "@headlessui/react";
-import { colorSchemeDarkBlue, themeQuartz, colorSchemeLightCold } from "ag-grid-community";
 import { useRouter } from 'next/navigation'
+import PropertyCard from "@/components/Cards/PropertyCard";
+import { Search, SlidersHorizontal } from "lucide-react";
 
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -19,110 +16,171 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 const PropertiesPage = () => {
   const [packageData, setPackageData] = useState<Property[]>([
     {
-      name: "Basic Plan",
-      type: "Residential",
-      price: 500,
-      area: "Downtown",
-      busy: false,
-      rent: 50,
+      id: "propCM001",
+      title: "Appartement T3 Bonapriso",
+      location: "Douala, Bonapriso",
+      price: 350000,
+      imageUrl: "/images/apartment/img-1.jpg",
+      bedrooms: 2,
+      bathrooms: 1,
+      livingRooms: 1,
+      status: "available"
     },
     {
-      name: "Standard Plan",
-      type: "Commercial",
-      price: 1200,
-      area: "Uptown",
-      busy: true,
-      rent: 120,
+      id: "propCM002",
+      title: "Villa Moderne avec Piscine",
+      location: "Yaoundé, Bastos",
+      price: 1500000,
+      imageUrl: "/images/apartment/img-2.jpg",
+      bedrooms: 5,
+      bathrooms: 4,
+      livingRooms: 2,
+      status: "available"
     },
     {
-      name: "Premium Plan",
-      type: "Residential",
-      price: 2500,
-      area: "Suburbs",
-      busy: false,
-      rent: 200,
+      id: "propCM003",
+      title: "Studio Meublé Akwa",
+      location: "Douala, Akwa",
+      price: 200000,
+      imageUrl: "/images/apartment/img-3.jpg",
+      bedrooms: 1,
+      bathrooms: 1,
+      livingRooms: 0,
+      status: "available"
     },
     {
-      name: "Business Pro",
-      type: "Commercial",
-      price: 4000,
-      area: "Business District",
-      busy: true,
-      rent: 350,
+      id: "propCM004",
+      title: "Maison Familiale",
+      location: "Bafoussam, Quartier Résidentiel",
+      price: 600000,
+      imageUrl: "/images/apartment/img-4.jpg",
+      bedrooms: 4,
+      bathrooms: 3,
+      livingRooms: 2,
+      status: "available"
     },
     {
-      name: "Luxury Suite",
-      type: "Residential",
-      price: 8000,
-      area: "Beachfront",
-      busy: false,
-      rent: 700,
+      id: "propCM005",
+      title: "Appartement Luxueux",
+      location: "Yaoundé, Golf",
+      price: 1200000,
+      imageUrl: "/images/apartment/img-5.jpg",
+      bedrooms: 3,
+      bathrooms: 2,
+      livingRooms: 1,
+      status: "available"
     },
     {
-      name: "Office Space",
-      type: "Commercial",
-      price: 3000,
-      area: "Downtown",
-      busy: true,
-      rent: 280,
+      id: "propCM006",
+      title: "Bungalow Bord de Mer",
+      location: "Kribi, Plage",
+      price: 800000,
+      imageUrl: "/images/apartment/img-6.jpg",
+      bedrooms: 2,
+      bathrooms: 1,
+      livingRooms: 1,
+      status: "available"
     },
     {
-      name: "Startup Hub",
-      type: "Commercial",
-      price: 1500,
-      area: "Tech Park",
-      busy: false,
-      rent: 150,
+      id: "propCM007",
+      title: "Duplex Spacieux",
+      location: "Douala, Bonamoussadi",
+      price: 1000000,
+      imageUrl: "/images/apartment/img-7.jpg",
+      bedrooms: 5,
+      bathrooms: 3,
+      livingRooms: 2,
+      status: "available"
     },
     {
-      name: "Budget Stay",
-      type: "Residential",
-      price: 700,
-      area: "Midtown",
-      busy: false,
-      rent: 60,
+      id: "propCM008",
+      title: "Appartement T2 Meublé",
+      location: "Yaoundé, Mvog-Mbi",
+      price: 300000,
+      imageUrl: "/images/apartment/img-8.jpg",
+      bedrooms: 2,
+      bathrooms: 1,
+      livingRooms: 1,
+      status: "available"
     },
     {
-      name: "Corporate Suite",
-      type: "Commercial",
-      price: 5000,
-      area: "Financial District",
-      busy: true,
-      rent: 450,
+      id: "propCM009",
+      title: "Maison Coloniale",
+      location: "Douala, Bonanjo",
+      price: 950000,
+      imageUrl: "/images/apartment/img-9.jpg",
+      bedrooms: 4,
+      bathrooms: 2,
+      livingRooms: 2,
+      status: "available"
     },
     {
-      name: "Vacation Home",
-      type: "Residential",
-      price: 3500,
-      area: "Countryside",
-      busy: false,
-      rent: 300,
+      id: "propCM010",
+      title: "Studio Étudiant",
+      location: "Yaoundé, Ngoa-Ekelle",
+      price: 150000,
+      imageUrl: "/images/apartment/img-10.jpg",
+      bedrooms: 1,
+      bathrooms: 1,
+      livingRooms: 0,
+      status: "available"
     },
-  ]);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      // browser code
-      const item = window.localStorage.getItem("color-theme");
-      // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : "light";
+    {
+      id: "propCM011",
+      title: "Résidence Haut Standing",
+      location: "Douala, Makepe",
+      price: 1300000,
+      imageUrl: "/images/apartment/img-11.jpg",
+      bedrooms: 4,
+      bathrooms: 3,
+      livingRooms: 2,
+      status: "available"
+    },
+    {
+      id: "propCM012",
+      title: "Chambre Meublée",
+      location: "Buea, Molyko",
+      price: 100000,
+      imageUrl: "/images/apartment/img-12.jpg",
+      bedrooms: 1,
+      bathrooms: 1,
+      livingRooms: 0,
+      status: "available"
+    },
+    {
+      id: "propCM013",
+      title: "Maison avec Jardin",
+      location: "Yaoundé, Nkolbisson",
+      price: 700000,
+      imageUrl: "/images/apartment/img-13.jpg",
+      bedrooms: 3,
+      bathrooms: 2,
+      livingRooms: 1,
+      status: "available"
+    },
+    {
+      id: "propCM014",
+      title: "Penthouse Vue Panoramique",
+      location: "Douala, Bonapriso",
+      price: 2000000,
+      imageUrl: "/images/apartment/img-14.jpg",
+      bedrooms: 6,
+      bathrooms: 4,
+      livingRooms: 3,
+      status: "available"
+    },
+    {
+      id: "propCM015",
+      title: "Appartement Résidentiel",
+      location: "Yaoundé, Omnisports",
+      price: 900000,
+      imageUrl: "/images/apartment/img-15.jpg",
+      bedrooms: 3,
+      bathrooms: 2,
+      livingRooms: 1,
+      status: "available"
     }
-  });
-
-  useEffect(() => {
-    const checkDarkMode = () => {
-      const darkModeEnabled = document.body.classList.contains('dark');
-      setIsDarkMode(darkModeEnabled);
-    };
-
-    checkDarkMode();
-
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    // Nettoyer l'observateur
-    return () => observer.disconnect();
-  }, []);
-
+  ]);
 
   const router = useRouter()
   const dataList = [
@@ -135,72 +193,51 @@ const PropertiesPage = () => {
     console.log('Selected:', selected);
   };
 
-  const darkTheme = themeQuartz.withPart(colorSchemeDarkBlue);
-  const lightTheme = themeQuartz.withPart(colorSchemeLightCold);
+  const hancleCardClick = (e: any) => {
+    console.log('ID', e)
+    router.push('properties/detail')
+  }
 
-  const [colDefs, setColDefs] = useState<ColDef[]>([
-    { field: "name" },
-    { field: "price" },
-    { field: "area" },
-    { field: "busy" },
-    { field: "rent" },
-  ]);
-  
-  const defaultColDef = {
-    flex: 1,
-  };
-  
 
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Locatif" />
       
-      <div className="rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark lg:px-7.5">
-        <div className="mx-auto max-w-full overflow-x-auto">
-          <div className="flex justify-between">
-            <div><span className="font-bold">Filtrer</span> Utiliser les options pour filtrer</div>
-            <Button
-              onClick={() => router.push('/properties/new')} 
-              className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
-              Nouveau Locatif
-            </Button>
+      <div className="my-10">
+        <div className="flex gap-4 mb-6">
+          <div className="flex-1 relative">
+            <Search
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              size={20}
+            />
+            <input
+              type="text"
+              placeholder="Search properties..."
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Immeubles" size="w-full" placeholder="Tous les immeubles"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Type" size="w-full" placeholder="Tous les types"/>
-            <DropdownFilter dataList={dataList} handleSelected={handleSelected} label="Location" size="w-full" placeholder="Avec et sans location"/>
-          </div>
-
-          <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700 w-3" />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
-            <div className="w-full">
-              <PropertyTile header="LOUE/NON LOUE" body="1/1"/>
-            </div>
-            <div className="w-full">
-              <PropertyTile header="VALEUR LOCATIVE" body="0.00 €"/>
-            </div>
-            <div className="w-full">
-              <PropertyTile header="VALEUR DES ACTIFS" body="0.00 €"/>
-            </div>
-          </div>
-
+          <button className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200">
+            <SlidersHorizontal size={20} />
+            Filters
+          </button>
+          <Button
+            onClick={() => router.push('/properties/new')} 
+            className="inline-flex items-center gap-2 rounded-md bg-[#2A4365] py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
+            Nouveau Locatif
+          </Button>
         </div>
       </div>
 
-      <div className="mt-4 rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark lg:px-7.5">
-        <div className="mx-auto max-w-full overflow-x-auto ag-theme-balham">
-          <AgGridReact
-            rowData={packageData}
-            columnDefs={colDefs}
-            defaultColDef={defaultColDef}
-            domLayout="autoHeight"
-            theme={!isDarkMode ? lightTheme : darkTheme}
+      <div className="justify-items-center grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 mt-5">
+        {packageData.map((property, index) => (
+          <PropertyCard 
+            key={property.id || index} 
+            property={property} 
+            className="h-full"
+            onClick={hancleCardClick}
           />
-        </div>
+        ))}
       </div>
-      {/* 
-       */}
     </DefaultLayout>
   );
 };
